@@ -4,8 +4,7 @@ import br.com.ada.pablo.enums.MFileAnnotationTypeEnum;
 import br.com.ada.pablo.repository.FileDataBase;
 import br.com.ada.pablo.repository.ImageFileDataBase;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 public class FileOrchestrator extends FolderOrchestrator implements ImageFileDataBase, FileDataBase {
@@ -50,32 +49,21 @@ public class FileOrchestrator extends FolderOrchestrator implements ImageFileDat
     //ARQUIVOS//
 
     @Override
-    public void saveFile(String directory, String content, MFileAnnotationTypeEnum tipo, String nameFile) throws IOException {
-        File dir = null;
-        if (tipo.equals(MFileAnnotationTypeEnum.REMINDER)) {
-            dir = new File(directory + "\\reminder");
-            boolean isDirectoryCreated = dir.mkdir();
-            if (isDirectoryCreated) {
-                System.out.println("successfully");
-            } else {
-                System.out.println("not");
-            }
-        } else if (tipo.equals(MFileAnnotationTypeEnum.IMPORTANT)) {
-            dir = new File(directory + "\\important");
-            boolean isDirectoryCreated = dir.mkdir();
-            if (isDirectoryCreated) {
-                System.out.println("successfully");
-            } else {
-                System.out.println("not");
-            }
-        } else if (tipo.equals(MFileAnnotationTypeEnum.SIMPLE)) {
-            dir = new File(directory + "\\simple");
-            boolean isDirectoryCreated = dir.mkdir();
-            if (isDirectoryCreated) {
-                System.out.println("successfully");
-            } else {
-                System.out.println("not");
-            }
+    public void saveFile(String directory, String content, MFileAnnotationTypeEnum type, String nameFile) throws IOException {
+        String dir = "";
+        switch (type){
+            case REMINDER -> dir = "reminders";
+            case IMPORTANT -> dir = "importants";
+            case IMAGE -> dir = "imagens";
+            default -> dir = "";
+        }
+        String path = directory + "\\" + dir + "\\" + nameFile + "txt";
+        try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path), "utf-8"))){
+            writer.write(content);
+            System.out.println("Archive created sussefully");
+        } catch (IOException ex){
+            ex.printStackTrace();
+            System.out.println("Generic error to create archive.");
         }
     }
 
