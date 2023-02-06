@@ -8,6 +8,6 @@ public interface FileDataBase {
 
     void saveFile(String directory, String content, MFileAnnotationTypeEnum tipo, String nameFile) throws IOException;
     void recoveryFile (String directory, String nameFile);
-    void removeFile (String diretorio, String nameFile);
+    boolean removeFile (String diretorio, String nameFile);
     void listAllFiles(String diretorio);
 }

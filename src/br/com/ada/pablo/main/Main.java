@@ -4,6 +4,7 @@ import br.com.ada.pablo.controller.HandleFile;
 import br.com.ada.pablo.enums.MFileAnnotationTypeEnum;
 import br.com.ada.pablo.inputs.Inputs;
 import br.com.ada.pablo.modelos.FileOrchestrator;
+import br.com.ada.pablo.modelos.FolderOrchestrator;
 import br.com.ada.pablo.modelos.MFile;
 
 import javax.imageio.ImageIO;
@@ -36,14 +37,5 @@ public class Main {
 
 
 
-        /*URL url = new URL(entradaDaUrl);
-
-        if (entradaDaUrl.endsWith("jpeg") || entradaDaUrl.endsWith("png")){
-            image = ImageIO.read(url);
-            ImageIO.write(image,"jpeg", new File("C:\\Users\\Public\\Pictures\\imagens"));
-        }else {
-            image = ImageIO.read(url);
-            ImageIO.write(image, "jpeg", new File("C:\\Users\\Public\\Pictures\\imagens"));
-        }*/
     }
 }
