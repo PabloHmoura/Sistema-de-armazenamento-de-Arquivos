@@ -18,24 +18,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Inputs inputs = new Inputs();
         inputs.telaMenu();
-
-
-        /*System.out.println("Digite o nome do arquivo:");
-        String fileName = scanner.nextLine();
-        file.setNameFile(fileName + ".txt");
-        OutputStream fos = new FileOutputStream(file.getNameFile(), true);
-        Writer osw = new OutputStreamWriter(fos);
-        BufferedWriter escrever = new BufferedWriter(osw);
-
-        System.out.println("Digite o conteúdo do arquivo:");
-        String content = scanner.nextLine();
-        file.setContent(content);
-        escrever.write(file.getContent());
-        file.setType(new HandleFile().retornaEscolhaDeEnum());
-
-        orchestrator.saveFile(endereco,file.getContent(), file.getType(), file.getNameFile());*/
-
-
-
+        
     }
 }

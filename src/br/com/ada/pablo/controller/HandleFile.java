@@ -5,6 +5,7 @@ import br.com.ada.pablo.modelos.FileOrchestrator;
 import br.com.ada.pablo.modelos.FolderOrchestrator;
 import br.com.ada.pablo.modelos.MFile;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
@@ -27,6 +28,10 @@ public class HandleFile {
 
     public void createFolder(String nameFolder) {
         folderOrchestrator.createFolder(nameFolder);
+    }
+
+    public void createImage(MFile imageFile) {
+        fileOrchestrator.saveImageFile(imageFile.getPath(), imageFile.getContent(), imageFile.getNameFile());
     }
 
 }

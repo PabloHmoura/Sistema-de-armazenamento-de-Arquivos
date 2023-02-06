@@ -1,16 +1,19 @@
 package br.com.ada.pablo.modelos;
 
+import br.com.ada.pablo.controller.TratandoImagens;
 import br.com.ada.pablo.enums.MFileAnnotationTypeEnum;
 import br.com.ada.pablo.repository.FileDataBase;
 import br.com.ada.pablo.repository.ImageFileDataBase;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URL;
 import java.util.List;
-import java.util.Scanner;
 
 public class FileOrchestrator extends FolderOrchestrator implements ImageFileDataBase, FileDataBase {
+
+    BufferedImage image = null;
+    TratandoImagens tratandoImagens = new TratandoImagens();
 
     public void saveAllListOfFiles(List mFileList){
 
@@ -131,16 +134,16 @@ public class FileOrchestrator extends FolderOrchestrator implements ImageFileDat
 
     @Override
     public void saveImageFile(String directory, String content, String nameFile) {
-        /*String image = new Scanner(System.in).nextLine();
-        URL url = new URL(image);
-
-        if (image.endsWith("jpeg") || image.endsWith("png")){
-            image = ImageIO.read(url);
-            ImageIO.write(image,"jpeg", new File("C:\\Users\\Public\\Pictures\\imagens"));
-        }else {
-            image = ImageIO.read(url);
-            ImageIO.write(image, "jpeg", new File("C:\\Users\\Public\\Pictures\\imagens"));
-        }*/
+        if (tratandoImagens.ehUrl(content)) {
+            try {
+                image = ImageIO.read(tratandoImagens.getUrl());
+                File file =  new File(directory + "\\" + nameFile + ".png");
+                System.out.println("Criou o new File");
+                ImageIO.write(image, "png", file);
+            } catch (IOException ex) {
+                System.out.println("Imagem não encontrada");
+            }
+        }
     }
 
     @Override

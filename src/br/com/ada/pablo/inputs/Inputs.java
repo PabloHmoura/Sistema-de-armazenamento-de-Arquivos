@@ -6,8 +6,10 @@ import br.com.ada.pablo.modelos.FileOrchestrator;
 import br.com.ada.pablo.modelos.FolderOrchestrator;
 import br.com.ada.pablo.modelos.MFile;
 
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Scanner;
 
 import static br.com.ada.pablo.enums.MFileAnnotationTypeEnum.*;
@@ -41,6 +43,15 @@ public class Inputs {
     }
 
     private void adicionarImagem() {
+        MFile mFile = new MFile();
+        System.out.println("Digite o nome do arquivo:");
+        mFile.setNameFile(scanner.nextLine());
+        System.out.println("Digite o endereço da URL");
+        mFile.setContent(scanner.nextLine());
+        System.out.println("Digite o caminho que deseja salvar o arquivo:");
+        mFile.setPath(scanner.nextLine());
+
+        handleFile.createImage(mFile);
     }
 
     private void adicionarArquivo() throws IOException {
