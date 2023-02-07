@@ -8,11 +8,6 @@ import br.com.ada.pablo.modelos.MFile;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Scanner;
-
-import static br.com.ada.pablo.enums.MFileAnnotationTypeEnum.*;
-
 
 public class HandleFile {
 
@@ -23,8 +18,8 @@ public class HandleFile {
         fileOrchestrator.saveFile(mFile.getPath(), mFile.getContent(), mFile.getType(), mFile.getNameFile());
     }
 
-    public void listFiles(String endereco) {
-        fileOrchestrator.listAllFiles(endereco);
+    public void listFiles(String directory) {
+        fileOrchestrator.listAllFiles(directory);
     }
 
     public void createFolder(String nameFolder) {
@@ -35,16 +30,20 @@ public class HandleFile {
         fileOrchestrator.saveImageFile(imageFile.getPath(), imageFile.getContent(), imageFile.getNameFile());
     }
 
-    public void createDirectory(String directory, MFileAnnotationTypeEnum tipoEnum) {
-        fileOrchestrator.criarDiretorioPorEnum(directory, tipoEnum);
+    public void createDirectory(String directory, MFileAnnotationTypeEnum enumType) {
+        fileOrchestrator.criarDiretorioPorEnum(directory, enumType);
     }
 
     public void removeFolder(File file) {
         folderOrchestrator.removeFolder(file);
     }
 
-    public void removeFile() {
+    public void removeFile(String path, String fileName) {
+        fileOrchestrator.removeFile(path, fileName);
+    }
 
+    public void openFile(String path, String fileName) throws IOException {
+        fileOrchestrator.recoveryFile(path, fileName);
     }
 
 }

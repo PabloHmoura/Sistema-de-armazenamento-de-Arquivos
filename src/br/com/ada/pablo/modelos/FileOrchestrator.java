@@ -95,34 +95,48 @@ public class FileOrchestrator extends FolderOrchestrator implements ImageFileDat
     }
 
     @Override
-    public void recoveryFile(String directory, String nameFile) {
+    public void recoveryFile(String directory, String nameFile) throws IOException {
+        try{
+            FileInputStream fis = new FileInputStream(directory + "\\" + nameFile + ".txt");
+            Reader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
 
+            System.out.println("---" + nameFile + "---");
+            System.out.println();
+            String linha = br.readLine();
+
+            while(linha != null) {
+                System.out.println(linha);
+                linha = br.readLine();
+            }
+            System.out.println();
+        } catch (FileNotFoundException ex) {
+            System.out.println("Arquivo não encontrado");
+        }
     }
 
     @Override
-    public boolean removeFile(String diretorio, String nameFile) {
-        File file = new File(diretorio+"\\"+nameFile);
+    public boolean removeFile(String directory, String fileName) {
+        File file = new File(directory+"\\"+fileName + ".txt");
         if (file.isFile()) {
-            String[] arquivos = file.list();
-            assert arquivos != null;
-            for (String arquivo : arquivos) {
-                boolean success = removeFolder(new File(file, arquivo));
-                if (!success) {
-
-                    return false;
-                }
+            boolean result = file.delete();
+            if (result){
+                System.out.println("Arquivo deletado!");
+                System.out.println();
             }
+            return result;
         }
+        System.out.println("Erro ao deletar o arquivo");
         return false;
     }
 
     @Override
-    public void listAllFiles(String diretorio) {
-        File file = new File(diretorio);
-        File[] arquivos = file.listFiles();
+    public void listAllFiles(String directory) {
+        File file = new File(directory);
+        File[] archives = file.listFiles();
 
-        if (arquivos != null) {
-            for (File fileTmp : arquivos) {
+        if (archives != null) {
+            for (File fileTmp : archives) {
                 if (fileTmp.isFile()) {
                     System.out.println(fileTmp.getName());
                 }
@@ -133,11 +147,11 @@ public class FileOrchestrator extends FolderOrchestrator implements ImageFileDat
     //IMAGENS//
 
     @Override
-    public void saveImageFile(String directory, String content, String nameFile) {
+    public void saveImageFile(String directory, String content, String fileName) {
         if (tratandoImagens.ehUrl(content)) {
             try {
                 image = ImageIO.read(tratandoImagens.getUrl());
-                File file =  new File(directory + "\\" + nameFile + ".png");
+                File file =  new File(directory + "\\" + fileName + ".png");
                 System.out.println("Criou o new File");
                 ImageIO.write(image, "png", file);
             } catch (IOException ex) {
