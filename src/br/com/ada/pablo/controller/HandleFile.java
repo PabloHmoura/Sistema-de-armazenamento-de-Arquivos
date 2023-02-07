@@ -6,6 +6,7 @@ import br.com.ada.pablo.modelos.FolderOrchestrator;
 import br.com.ada.pablo.modelos.MFile;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
@@ -32,6 +33,18 @@ public class HandleFile {
 
     public void createImage(MFile imageFile) {
         fileOrchestrator.saveImageFile(imageFile.getPath(), imageFile.getContent(), imageFile.getNameFile());
+    }
+
+    public void createDirectory(String directory, MFileAnnotationTypeEnum tipoEnum) {
+        fileOrchestrator.criarDiretorioPorEnum(directory, tipoEnum);
+    }
+
+    public void removeFolder(File file) {
+        folderOrchestrator.removeFolder(file);
+    }
+
+    public void removeFile() {
+
     }
 
 }

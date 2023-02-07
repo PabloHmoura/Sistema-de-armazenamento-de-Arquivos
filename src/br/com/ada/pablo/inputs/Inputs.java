@@ -17,8 +17,7 @@ import static br.com.ada.pablo.enums.MFileAnnotationTypeEnum.*;
 public class Inputs {
 
     Scanner scanner = new Scanner(System.in);
-    private FolderOrchestrator folderOrchestrator;
-    private FileOrchestrator fileOrchestrator;
+
     private HandleFile handleFile = new HandleFile();
     public void telaMenu() throws IOException {
 
@@ -29,7 +28,9 @@ public class Inputs {
                         2 - Create folder
                         3 - listar arquivos de um diretório
                         4 - Adicionar arquivo
-                        5 - Adicionar imagem""");
+                        5 - Adicionar imagem
+                        6 - Remover pasta
+                        7 - Remover arquivo""");
         int opcao = scanner.nextInt();
         scanner.skip("((?<!\\R)\\s)*");
         switch (opcao){
@@ -38,11 +39,23 @@ public class Inputs {
             case 3 -> telaListarArquivos();
             case 4 -> adicionarArquivo();
             case 5 -> adicionarImagem();
+            case 6 -> removendoFolder();
+            case 7 -> removeFile();
             default -> System.out.println("Opção inválida");
         }
     }
 
-    private void adicionarImagem() {
+    private void removeFile() throws IOException {
+        System.out.println("Digite o caminho do arquivo que deseja deletar:");
+        String path = scanner.nextLine();
+        System.out.println("Digite o nome do arquivo:");
+        String nameFile = scanner.nextLine();
+        File file = new File(path + "\\" + nameFile + ".txt");
+        handleFile.removeFolder(file);
+        telaMenu();
+    }
+
+    private void adicionarImagem() throws IOException {
         MFile mFile = new MFile();
         System.out.println("Digite o nome do arquivo:");
         mFile.setNameFile(scanner.nextLine());
@@ -52,6 +65,7 @@ public class Inputs {
         mFile.setPath(scanner.nextLine());
 
         handleFile.createImage(mFile);
+        telaMenu();
     }
 
     private void adicionarArquivo() throws IOException {
@@ -77,12 +91,7 @@ public class Inputs {
     private void telaListarArquivos() throws IOException {
         System.out.println("Digite o endereço do diretório");
         String endereco = scanner.nextLine();
-
         handleFile.listFiles(endereco);
-
-        /*FileOrchestrator fileOrchestrator = new FileOrchestrator();
-        fileOrchestrator.listAllFiles(endereco);*/
-
         telaMenu();
     }
 
@@ -98,15 +107,16 @@ public class Inputs {
         MFileAnnotationTypeEnum tipoEnum = retornaEscolhaDeEnum();
         System.out.println("Digite o caminho do diretório:");
         String directory = scanner.nextLine();
-        fileOrchestrator.criarDiretorioPorEnum(directory, tipoEnum);
+        handleFile.createDirectory(directory, tipoEnum);
 
         telaMenu();
     }
 
     private void removendoFolder() {
-        System.out.println("Digite o caminho do arquivo que deseja deletar");
-        File file = new File("C:\\new Folder");
-        folderOrchestrator.removeFolder(file);
+        System.out.println("Digite o caminho da pasta que deseja deletar");
+        String path = scanner.nextLine();
+        File file = new File(path);
+        handleFile.removeFolder(file);
     }
 
     public MFileAnnotationTypeEnum retornaEscolhaDeEnum() {
